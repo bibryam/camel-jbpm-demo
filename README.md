@@ -9,10 +9,10 @@ To see the full list of supported operations by the component check the official
 ####Running the Demo with JBoss Fuse 6.2 and JBoss BPMS
 The Demo connects Camel Routes running on Fuse with Business Processes running on BPMS. It consists of two distinct parts and to run the demo end to end, you will need to setup both applications. 
 
-- **Run BPMS and deploy a Business Process:** Download and run BPMS. I use my [Docker image](https://github.com/bibryam/dockerfiles/tree/master/eap-bpms) for this purpose. Then you have to create and deploy a BPMN process to handle errors. For this purpose I've created another project with the process definition. The easiest way is to clone the [project](https://github.com/bibryam/camel-human-task-cep-jbpm-repo.git) directly from BPMS web console and follow the instructions to deploy it. The project evaluates the error coming Fuse using CEP and if there are more than 5 errors in 10 seconds, it marks the error as critical and creates Human Tasks for someone review the errors. If the errors doesn't qualify as critical, they are logged and no Human Task is created.
+- **Run BPMS and deploy a Business Process:** Download and run BPMS. I use this [Docker image](https://github.com/bibryam/dockerfiles/tree/master/eap-bpms) . Then you have to create and deploy a BPMN process to handle errors. For this purpose I've created another project with the process definition. The easiest way is to clone the [project](https://github.com/bibryam/camel-human-task-cep-jbpm-repo.git) directly from BPMS web console and follow the instructions to deploy it. The project evaluates the errors send by Fuse using CEP and if there are more than 5 errors in 10 seconds, it marks the error as critical and creates Human Tasks for assignee to review it. If the errors doesn't qualify as critical, they are logged and no Human Task is created.
 
 
-- **Run Fuse and deploy a Camel Route:** Download and run Fuse 6.2. Then build and deploy the Camel route from this project with the commands below. The route has an error handler that catches exceptions and starts business process in BPMS by passing all the necessary details about the exception:  contextId,  routeId, endpointId, exchangeId, breadcrumbId, exceptionType, errorMessage. Once cloned and build. the Camel route can be deployed with the following commands:
+- **Run Fuse and deploy a Camel Route:** Download and run Fuse 6.2. Then build and deploy the Camel route from this project with the commands below. The route has an error handler that catches exceptions and starts business process in BPMS by passing all the necessary details about the exception:  contextId,  routeId, endpointId, exchangeId, breadcrumbId, exceptionType, errorMessage. Once cloned and build the route can be deployed with the following commands:
 
 
 
@@ -24,6 +24,7 @@ The Demo connects Camel Routes running on Fuse with Business Processes running o
 
  
 ####Example Route
+Here is an example route for starting processes using the jbpm connector:
 
     <route id="START_PROCESS_ROUTE">
         <from uri="timer://foo?fixedRate=true&amp;period=10000"/>
