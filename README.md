@@ -14,6 +14,9 @@ The Demo connects Camel Routes running on Fuse with Business Processes running o
 
 - **Run Fuse and deploy a Camel Route:** Download and run Fuse 6.2. Then build and deploy the Camel route from this project with the commands below. The route has an error handler that catches exceptions and starts business process in BPMS by passing all the necessary details about the exception:  contextId,  routeId, endpointId, exchangeId, breadcrumbId, exceptionType, errorMessage. Once cloned and build. the Camel route can be deployed with the following commands:
 
+
+
+
     JBossFuse:admin@root> features:addurl mvn:org.apache.camel.karaf/apache-camel/2.16.0/xml/features  
     JBossFuse:admin@root> features:install camel-jbpm  
     JBossFuse:admin@root> install -s mvn:com.ofbizian/camel-jbpm-demo/1.0.0  
